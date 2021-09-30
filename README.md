@@ -29,7 +29,7 @@ docker build --pull -t aspnetapp -f Dockerfile.6.0 .
 docker run --rm -it -p 8888:80 --name aspnetapp aspnetapp
 ```
 
-The upload app is accessible on port 8000.
+The upload app is accessible on port 8888.
 
 Finally, run a shellshock for example.
 
