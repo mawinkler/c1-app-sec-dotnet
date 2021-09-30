@@ -1,4 +1,22 @@
 <configuration>
    <key>KEY6</key>
    <secret>SECRET</secret>
+   <!-- <helloUrl>https://agent-manager.stg.im7.io/</helloUrl> -->
+   <helloURL>https://agents.trend-us-1.application.cloudone.trendmicro.com</helloURL>
+
+   <!-- Logging -->
+   <!-- Log file must be writable by your server process. -->
+   <logFile>/var/log/trend_app_protect/trend_app_protect.log</logFile>
+   <!-- Available log levels: off, error, warn, info, debug, trace, all -->
+   <logLevel>debug</logLevel>
+
+   <!-- Enable debug pages and schema validation -->
+   <!-- <debugMode>true</debugMode> -->
+
+   <!-- Plugins -->
+   <!-- Optionally disable some plugins: file_io, exec, redirect, sqli, ips or av -->
+   <!-- <pluginsDisabled>av</pluginsDisabled> -->
+
+   <!-- Where to cache the agent code and data. Must be writable by your server process. -->
+   <!-- <cacheDir>tmp/cache</cacheDir> -->
 </configuration>
