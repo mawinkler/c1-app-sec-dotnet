@@ -1,1 +1,2 @@
-TrendAppProtect.config
+env.sh
+logs/appsec.log

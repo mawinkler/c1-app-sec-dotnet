@@ -20,14 +20,18 @@ WORKDIR /app
 COPY --from=build /app ./
 
 # Application Security
-RUN mkdir -p /app/trend_app_protect_netcore/bin
-COPY bin /app/trend_app_protect_netcore/bin
-COPY TrendAppProtect.config /app/trend_app_protect_netcore/
-
+RUN mkdir -p /app/TrendAppProtect && \
+    mkdir /var/log/appsec
+    
+COPY TrendAppProtect/ TrendAppProtect/
 ENV CORECLR_ENABLE_PROFILING=1
 ENV CORECLR_PROFILER={a51743a9-9e05-4a9f-adcd-d39aa322615a}
-ENV CORECLR_PROFILER_PATH=/app/trend_app_protect_netcore/bin/libTrendAppProtectProfiler-x64-Linux.so
-ENV TREND_AP_CONFIG_FILE=/app/trend_app_protect_netcore/TrendAppProtect.config
+ENV CORECLR_PROFILER_PATH=/app/TrendAppProtect/bin/libTrendAppProtectProfiler-x64-Linux.so
+ENV TREND_AP_CONFIG_FILE=/app/TrendAppProtect/TrendAppProtect.config
+
+ENV ASPNETCORE_ENVIRONMENT="Development"
 # /Application Security
+
+EXPOSE 80
 
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]

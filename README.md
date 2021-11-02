@@ -2,10 +2,11 @@
 
 - [Cloud One Application Security with dotNET Core](#cloud-one-application-security-with-dotnet-core)
   - [Usage](#usage)
+  - [Attacks](#attacks)
   - [Support](#support)
   - [Contribute](#contribute)
 
-This demo app for Cloud One Application Security uses a simple dotNET demo app based on @Microsoft <https://github.com/dotnet/dotnet-docker/tree/main/samples/aspnetapp>.
+This demo app for Cloud One Application Security uses a simple dotNET demo app based on @Microsoft <https://github.com/dotnet/dotnet-docker/tree/main/samples/aspnetapp>. The app does not support any interaction, but you can shellshock it to proove, that Application Security does it's job.
 
 Application Security integration done via the provided Dockerfile
 
@@ -13,28 +14,41 @@ Application Security integration done via the provided Dockerfile
 
 First, clone the repo
 
-Then build and run the container
-
 ```sh
-# Build the image with dotNET 3.1
-docker build --pull -t aspnetapp -f Dockerfile.3.1 .
-
-# Build the image with dotNET 5.0
-docker build --pull -t aspnetapp -f Dockerfile.5.0 .
-
-# Build the image with dotNET 6.0
-docker build --pull -t aspnetapp -f Dockerfile.6.0 .
-
-# Run the container
-docker run --rm -it -p 8888:80 --name aspnetapp aspnetapp
+$ git clone https://github.com/mawinkler/c1-app-sec-dotnet.git
 ```
 
-The upload app is accessible on port 8888.
-
-Finally, run a shellshock for example.
+Now, set your Application Security keys
 
 ```sh
-curl -H "User-Agent: () { :; }; /bin/eject" http://localhost:8888
+$ # YOUR KEYS HERE
+$ export APPSEC_KEY=<your key>
+$ export APPSEC_SECRET=<your secret>
+$ # YOUR DOCKER HUB USERNAME (required for deploy.sh only)
+$ export DOCKER_USERNAME=<your username>
+$ # DESIRED DOTNET VERSION
+$ export DOTNET_VERSION=5.0
+```
+
+Eventually, if your Cloud One V2 account is NOT running in `us-1` you need to adapt the hello_url in the `TrendAppProtect.config`.
+
+Then build and run the container, which you can do by running
+
+```sh
+$ # Run app on your local docker engine
+$ # Requires docker-compose
+$ ./run.sh
+
+$ # Deploy app with a loadbalancer service on your current kubernetes context
+$ ./deploy.sh
+```
+
+The app is accessible on port 5000.
+
+## Attacks
+
+```sh
+curl -H "User-Agent: () { :; }; /bin/eject" http://<IP>:80/
 ```
 
 ## Support
